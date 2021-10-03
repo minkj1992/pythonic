@@ -7,7 +7,8 @@ import pytest
 
 def load_params_from_json(file_name: str) -> List[Dict]:
     root_path = dirname(abspath(__file__))
-    file_path = join(root_path, file_name)
+    data_folder_name = 'data'
+    file_path = join(root_path, data_folder_name, file_name)
     with open(file_path) as f:
         return json.load(f)
 
