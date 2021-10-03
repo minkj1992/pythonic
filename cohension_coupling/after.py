@@ -1,5 +1,6 @@
 import random
 import string
+from typing import Dict
 
 
 class VehicleInfo:
@@ -35,10 +36,10 @@ class Vehicle:
 
 
 class VehicleRegistry:
-    db = {}
+    db: Dict[str, VehicleInfo] = {}
 
     @staticmethod
-    def insert_vehicle(brand, electric, catalogue_price):
+    def insert_vehicle_info(brand, electric, catalogue_price):
         VehicleRegistry.db[brand] = VehicleInfo(brand, electric, catalogue_price)
 
     @staticmethod
@@ -46,10 +47,10 @@ class VehicleRegistry:
         return VehicleRegistry.db[brand]
 
     def __init__(self):
-        VehicleRegistry.insert_vehicle("Tesla Model 3", True, 60000)
-        VehicleRegistry.insert_vehicle("Volkswagen ID3", True, 35000)
-        VehicleRegistry.insert_vehicle("BMW 5", False, 45000)
-        VehicleRegistry.insert_vehicle("Tesla Model Y", True, 75000)
+        VehicleRegistry.insert_vehicle_info("Tesla Model 3", True, 60000)
+        VehicleRegistry.insert_vehicle_info("Volkswagen ID3", True, 35000)
+        VehicleRegistry.insert_vehicle_info("BMW 5", False, 45000)
+        VehicleRegistry.insert_vehicle_info("Tesla Model Y", True, 75000)
 
     def generate_vehicle_id(self, length) -> str:
         return ''.join(random.choices(string.ascii_uppercase, k=length))
