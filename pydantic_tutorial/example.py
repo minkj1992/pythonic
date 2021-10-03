@@ -6,24 +6,25 @@ from os.path import abspath, dirname, join
 from typing import List, Optional
 
 import pydantic
+from pydantic import ValidationError
 
 
-class ISBNMissingError(pydantic.ValidationError):
+class ISBNMissingError(Exception):
     """Custom error that is raised when both ISBN10 and ISBN13 are missing"""
 
     def __init__(self, title: str, message: str) -> None:
         self.title = title
         self.message = message
-        super().__init__(message)
+        super().__init__(self.message)
 
 
-class ISBN10FormatError(pydantic.ValidationError):
+class ISBN10FormatError(Exception):
     """Custom error that is raised when ISBN10 doesn't have the right format."""
 
     def __init__(self, value: str, message: str) -> None:
         self.value = value
         self.message = message
-        super().__init__(message)
+        super().__init__(self.message)
 
 
 class Author(pydantic.BaseModel):
