@@ -67,7 +67,6 @@ class CompleteEqualityObject:
         )
 
 
-@pytest.mark.current
 class EqualityTests:
     """
     By default, those methods are inherited from the object class that compares two instances by their identity

@@ -8,6 +8,8 @@ pydantic = "*"
 mypy = "*"
 pytest = "*"
 nbconvert = "*"
+decorator = "*"
+faker = "*"
 
 [dev-packages]
 
