@@ -9,7 +9,7 @@ def allocate(line: OrderLine, batches: List[Batch]):
     try:
         batch = next(b for b in sorted(batches) if b.can_allocate(line))
         batch.allocate(line)
-        return batch.reference
+        return batch.ref
     except StopIteration:
         raise OutOfStockException(f'Out of stock for sku {line.sku}')
 
@@ -31,7 +31,7 @@ class OrderLine(OrderLineBase):
 
 class Batch:
     def __init__(self, ref: str, order_line_base: OrderLineBase, eta: Optional[date]):
-        self.reference = ref
+        self.ref = ref
         self.sku = order_line_base.sku
         self.eta = eta
 
@@ -39,15 +39,15 @@ class Batch:
         self._allocations = set()  # type: Set[OrderLine]
 
     def __repr__(self):
-        return f"<Batch {self.reference}>"
+        return f"<Batch {self.ref}>"
 
     def __eq__(self, other):
         if not isinstance(other, Batch):
             return False
-        return other.reference == self.reference
+        return other.ref == self.ref
 
     def __hash__(self):
-        return hash(self.reference)
+        return hash(self.ref)
 
     def __gt__(self, other):
         if self.eta is None:
@@ -74,6 +74,6 @@ class Batch:
 
     def can_allocate(self, line) -> bool:
         return (
-                self.sku == line._SKU and
+                self.sku == line.sku and
                 self.available_qty >= line.qty
         )

@@ -29,11 +29,11 @@ def make_batch_and_line(sku, batch_qty, line_qty):
     )
 
 
-def make_batch(sku, batch_qty) -> Batch:
+def make_batch(sku, batch_qty, eta=date.today()) -> Batch:
     ref = _get_ref(prefix='batch')
     return Batch(ref,
                  OrderLineBase(sku=sku, qty=batch_qty),
-                 eta=date.today())
+                 eta=eta)
 
 
 def make_order_line(sku, line_qty) -> OrderLine:
